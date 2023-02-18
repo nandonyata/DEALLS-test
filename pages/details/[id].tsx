@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function Detial() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   const router = useRouter();
   const { id } = router.query;
 
@@ -55,7 +55,7 @@ export default function Detial() {
                 </tr>
               </thead>
               <tbody>
-                {data.products.map((e) => (
+                {data.products.map((e: any) => (
                   <tr>
                     <td>{e.title}</td>
                     <td>{e.quantity}</td>

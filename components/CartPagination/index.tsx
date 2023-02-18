@@ -4,7 +4,7 @@ import TableRow from '../TableRow';
 import 'bootstrap/dist/css/bootstrap.css';
 import CartRow from '../CartRow';
 
-export default function CartPaginationData(props) {
+export default function CartPaginationData(props: any) {
   const { data } = props;
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
@@ -13,18 +13,19 @@ export default function CartPaginationData(props) {
   const currentItems = data.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(data.length / itemsPerPage);
 
-  const handlePageClick = (event) => {
+  const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
 
   return (
     <>
-      {currentItems.map((e) => (
+      {currentItems.map((e: any) => (
         <CartRow key={e.id} id={e.id} totalProducts={e.totalProducts} discountedTotal={e.discountedTotal} />
       ))}
 
-      <ReactPaginate className="pagination" onPageChange={handlePageClick} pageRangeDisplayed={5} pageCount={pageCount} renderOnZeroPageCount={null} />
+      {/* <ReactPaginate className="pagination" onPageChange={handlePageClick} pageRangeDisplayed={5} pageCount={pageCount} renderOnZeroPageCount={null} /> */}
+      <ReactPaginate className="pagination" onPageChange={handlePageClick} pageRangeDisplayed={5} pageCount={pageCount} />
     </>
   );
 }
