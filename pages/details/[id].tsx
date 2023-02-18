@@ -10,7 +10,7 @@ export default function Detial() {
   const { id } = router.query;
 
   useEffect(() => {
-    fetch('https://dummyjson.com/carts/1')
+    fetch(`https://dummyjson.com/carts/${id}`)
       .then((res) => res.json())
       .then((res) => setData(res));
   }, []);

@@ -1,3 +1,4 @@
+import CartPaginationData from '@/components/CartPagination';
 import CartRow from '@/components/CartRow';
 import Layout from '@/components/Layout';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -41,9 +42,10 @@ export default function Carts() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((e) => (
+                {/* {data.map((e) => (
                   <CartRow key={e.id} id={e.id} totalProducts={e.totalProducts} discountedTotal={e.discountedTotal} />
-                ))}
+                ))} */}
+                <CartPaginationData data={data} />
               </tbody>
             </table>
           </div>
