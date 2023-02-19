@@ -1,4 +1,4 @@
-export default function TableRow(props) {
+export default function TableRow(props: any) {
   const { title, brand, category, price, stock, id } = props;
   return (
     <>

@@ -12,8 +12,8 @@ import PaginationData from '@/components/Pagination';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [data, setData] = useState(null);
-  const [data2, setData2] = useState(null);
+  const [data, setData] = useState([]);
+  const [data2, setData2] = useState(Array<any>);
   const [maxPrice, setMaxPrice] = useState(null);
   const [minPrice, setMinPrice] = useState(null);
   const [input, setInput] = useState('');
@@ -21,7 +21,7 @@ export default function Home() {
   const categories = ['smartphones', 'laptops', 'fragrances', 'skincare', 'groceries', 'home-decoration'];
   let brands;
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
 
     if (name == 'maxPrice') {
@@ -36,35 +36,36 @@ export default function Home() {
     setInput(value);
   };
 
-  const submitPrice = (e) => {
+  const submitPrice = (e: any) => {
     e.preventDefault();
     // console.log({ maxPrice, minPrice });
-
-    const temp = data.filter((el) => el.price >= minPrice && el.price <= maxPrice);
-    setData2(temp);
+    if (minPrice != null && maxPrice != null) {
+      const temp = data.filter((el: any) => el.price >= minPrice && el.price <= maxPrice);
+      setData2(temp);
+    }
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: any) => {
     e.preventDefault();
 
     if (input == '' || input == ' ') {
-      setData2(null);
+      setData2([]);
       return;
     }
 
-    const temp = data.filter((el) => el.title.toLowerCase().includes(input));
+    const temp = data.filter((el: any) => el.title.toLowerCase().includes(input));
     setData2(temp);
   };
 
-  const handleFilterByCategory = (e) => {
+  const handleFilterByCategory = (e: any) => {
     const value = e.target.value;
-    const temp = data.filter((el) => el.category == value);
+    const temp = data.filter((el: any) => el.category == value);
     setData2(temp);
   };
 
-  const handleFilterByBrand = (e) => {
+  const handleFilterByBrand = (e: any) => {
     const value = e.target.value;
-    const temp = data.filter((el) => el.brand == value);
+    const temp = data.filter((el: any) => el.brand == value);
     setData2(temp);
   };
 
@@ -74,7 +75,7 @@ export default function Home() {
       .then((res) => setData(res.products));
   }, []);
 
-  if (!data) {
+  if (data.length == 0) {
     return (
       <Layout>
         <div className="container">
@@ -86,8 +87,8 @@ export default function Home() {
     );
   }
 
-  const temp = data.map((e) => e.brand);
-  brands = temp.filter((value, i) => temp.indexOf(value) == i);
+  const temp = data.map((e: any) => e.brand);
+  brands = temp.filter((value: any, i: any) => temp.indexOf(value) == i);
 
   // console.log(data, '< , <');
 
@@ -109,7 +110,9 @@ export default function Home() {
                   Filter by category
                 </option>
                 {categories.map((e) => (
-                  <option value={e}>{e}</option>
+                  <option value={e} key={e}>
+                    {e}
+                  </option>
                 ))}
               </select>
             </div>
@@ -120,7 +123,9 @@ export default function Home() {
                   Filter by brand
                 </option>
                 {brands.map((e) => (
-                  <option value={e}>{e}</option>
+                  <option value={e} key={e}>
+                    {e}
+                  </option>
                 ))}
               </select>
             </div>
@@ -144,7 +149,7 @@ export default function Home() {
                   <th scope="col">Category</th>
                 </tr>
               </thead>
-              <tbody>{data2 ? data2.map((e) => <TableRow id={e.id} key={e.id} title={e.title} brand={e.brand} price={e.price} category={e.category} stock={e.stock} />) : <PaginationData data={data} />}</tbody>
+              <tbody>{data2.length != 0 ? data2.map((e: any) => <TableRow id={e.id} key={e.id} title={e.title} brand={e.brand} price={e.price} category={e.category} stock={e.stock} />) : <PaginationData data={data} />}</tbody>
             </table>
           </div>
         </div>

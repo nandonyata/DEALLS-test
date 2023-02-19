@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function CartRow(props) {
+export default function CartRow(props: any) {
   const { id, totalProducts, discountedTotal } = props;
 
   const detailHandler = () => {
